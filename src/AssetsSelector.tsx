@@ -97,9 +97,8 @@ const AssetsSelector = ({
 
     const getMediaLibraryPermission = useCallback(async () => {
         try {
-            const {
-                status: MEDIA_LIBRARY,
-            }: MediaLibrary.PermissionResponse = await MediaLibrary.requestPermissionsAsync()
+            const { status: MEDIA_LIBRARY }: MediaLibrary.PermissionResponse =
+                await MediaLibrary.requestPermissionsAsync()
             if (MEDIA_LIBRARY !== 'granted') {
                 setLoading(false)
                 setError({
@@ -143,6 +142,7 @@ const AssetsSelector = ({
                 const params: AssetsOptions = {
                     first: 100,
                     mediaType: Settings.assetsType,
+                    album: Settings.album,
                     sortBy: ['creationTime'],
                 }
                 if (availableOptions.after)
@@ -152,14 +152,14 @@ const AssetsSelector = ({
                 return permissions.hasMediaLibraryPermission
                     ? loadAssets(params)
                     : getMediaLibraryPermission()
-            } 
+            }
         } catch (err) {
             setError({
                 hasError: true,
                 errorType: 'hasErrorWithLoading',
             })
         }
-        return; // only added because of `noImplicitReturns` ugly rule.
+        return // only added because of `noImplicitReturns` ugly rule.
     }
 
     const resizeImages = async (image: Asset, manipulate: ResizeType) => {
