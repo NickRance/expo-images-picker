@@ -1,6 +1,7 @@
 import React, { JSXElementConstructor } from 'react'
 import { Asset, MediaTypeValue } from 'expo-media-library'
 import { StyleProp, TextStyle, ViewStyle } from 'react-native'
+import * as MediaLibrary from "expo-media-library"
 
 declare const AssetsSelector: React.FC<AssetSelectorPropTypes>
 
@@ -27,7 +28,8 @@ export enum SaveType {
 }
 
 export type SettingsType = {
-    initialLoad: number
+    initialLoad: number;
+    album: MediaLibrary.AlbumRef;
     assetsType: MediaTypeValue[]
     minSelection: number
     maxSelection: number
